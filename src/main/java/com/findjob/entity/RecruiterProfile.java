@@ -1,5 +1,7 @@
 package com.findjob.entity;
 
+import org.springframework.data.annotation.Transient;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -120,7 +122,13 @@ public class RecruiterProfile {
 	public void setProfilePhoto(String profilePhoto) {
 		this.profilePhoto = profilePhoto;
 	}
-
+	
+	@Transient // because we are not processing it in a db
+	public String getPhotosImagePath() {
+		if(profilePhoto == null) return null;
+		return "/photos/recruiter/"+userAccountId+"/"+profilePhoto;
+	}
+	
 	@Override
 	public String toString() {
 		return "RecruiterProfile [userAccountId=" + userAccountId + ", userId=" + userId + ", firstName=" + firstName

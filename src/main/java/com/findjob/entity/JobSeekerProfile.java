@@ -17,7 +17,7 @@ import jakarta.persistence.Table;
 public class JobSeekerProfile {
 
 	@Id
-	private int userAccountId;
+	private Integer userAccountId;
 	
 	@OneToOne
 	@JoinColumn(name = "user_account_id")
@@ -34,13 +34,18 @@ public class JobSeekerProfile {
 	@Column(nullable = true, length = 64)
 	private String profilePhoto;
 	
+	public String getPhotosImagePath() {
+		if(profilePhoto == null || userAccountId == null) return null;
+		return "/photos/candidates/" + userAccountId + "/" + profilePhoto;
+	}
+	
 	@OneToMany(targetEntity = Skills.class, cascade = CascadeType.ALL, mappedBy = "jobSeekerProfile")
 	private List<Skills> skills;
 
 	public JobSeekerProfile() {
 	}
 
-	public JobSeekerProfile(int userAccountId, Users userId, String firstName, String lastName, String city,
+	public JobSeekerProfile(Integer userAccountId, Users userId, String firstName, String lastName, String city,
 			String state, String country, String workAuthorization, String employementType, String resume,
 			String profilePhoto, List<Skills> skills) {
 		this.userAccountId = userAccountId;
@@ -61,11 +66,11 @@ public class JobSeekerProfile {
 		this.userId = user;
 	}
 
-	public int getUserAccountId() {
+	public Integer getUserAccountId() {
 		return userAccountId;
 	}
 
-	public void setUserAccountId(int userAccountId) {
+	public void setUserAccountId(Integer userAccountId) {
 		this.userAccountId = userAccountId;
 	}
 
@@ -125,11 +130,11 @@ public class JobSeekerProfile {
 		this.workAuthorization = workAuthorization;
 	}
 
-	public String getEmployementType() {
+	public String getEmploymentType() {
 		return employmentType;
 	}
 
-	public void setEmployementType(String employementType) {
+	public void setEmploymentType(String employementType) {
 		this.employmentType = employementType;
 	}
 
